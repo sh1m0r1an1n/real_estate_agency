@@ -10,6 +10,7 @@ class Flat(models.Model):
     owner_pure_phone = PhoneNumberField(
         'Нормализированный номер владельца',
         blank=True,
+        null=True,
         region='RU',
         help_text='Формат: +7XXXXXXXXXX'
     )
