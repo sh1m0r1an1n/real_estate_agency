@@ -5,15 +5,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Flat(models.Model):
-    owner = models.CharField('ФИО владельца', max_length=200)
-    owners_phonenumber = models.CharField('Номер владельца', max_length=20)
-    owner_pure_phone = PhoneNumberField(
-        'Нормализированный номер владельца',
-        blank=True,
-        null=True,
-        region='RU',
-        help_text='Формат: +7XXXXXXXXXX'
-    )
+    owner_deprecated = models.CharField('ФИО владельца', max_length=200)
     new_building = models.BooleanField(
         'Новостройка',
         null=True,
@@ -96,13 +88,14 @@ class Complaint(models.Model):
 
 
 class Owner(models.Model):
-    full_name = models.CharField('ФИО владельца', max_length=200)
-    phonenumber = models.CharField('Номер владельца', max_length=20)
+    full_name = models.CharField('ФИО владельца', max_length=200, db_index=True)
+    phonenumber = models.CharField('Номер владельца', max_length=20, db_index=True)
     pure_phone = PhoneNumberField(
         'Нормализованный номер',
         blank=True,
         null=True,
         region='RU',
+        db_index=True,
         help_text='Формат: +7XXXXXXXXXX'
     )
     flats = models.ManyToManyField(
