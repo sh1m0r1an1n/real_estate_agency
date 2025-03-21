@@ -10,6 +10,7 @@ class Flat(models.Model):
         'Новостройка',
         null=True,
         blank=True,
+        db_index=True,
         help_text='True — новостройка, False — старое здание, None — не заполнено'
     )
     created_at = models.DateTimeField(
